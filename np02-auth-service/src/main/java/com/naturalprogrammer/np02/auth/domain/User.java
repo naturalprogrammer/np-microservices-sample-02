@@ -1,4 +1,4 @@
-package com.naturalprogrammer.np02.auth.controllers.domain;
+package com.naturalprogrammer.np02.auth.domain;
 
 import java.io.Serializable;
 

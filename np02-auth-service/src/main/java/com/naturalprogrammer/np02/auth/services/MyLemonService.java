@@ -3,12 +3,12 @@ package com.naturalprogrammer.np02.auth.services;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
-import com.naturalprogrammer.np02.auth.controllers.domain.User;
+import com.naturalprogrammer.np02.auth.domain.User;
 import com.naturalprogrammer.spring.lemon.commons.security.UserDto;
 import com.naturalprogrammer.spring.lemonreactive.LemonReactiveService;
 
 @Service
-public class MyService extends LemonReactiveService<User, ObjectId> {
+public class MyLemonService extends LemonReactiveService<User, ObjectId> {
 
 	public static final String ADMIN_NAME = "Administrator";
 

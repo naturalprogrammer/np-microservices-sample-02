@@ -1,1 +1,2 @@
 org.springframework.cloud.bootstrap.BootstrapConfiguration: com.naturalprogrammer.np02.lib001.noscan.GitPropertySourceLocator
+org.springframework.boot.autoconfigure.EnableAutoConfiguration: com.naturalprogrammer.np02.lib001.scan.Lib001AutoConfiguration
