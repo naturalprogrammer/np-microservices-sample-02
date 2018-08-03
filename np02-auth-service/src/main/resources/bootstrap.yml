@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: auth
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://localhost:8888
+      label: ${git.branch},develop,master
