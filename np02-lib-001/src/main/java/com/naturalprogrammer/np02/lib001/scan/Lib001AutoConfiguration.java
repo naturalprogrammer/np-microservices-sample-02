@@ -22,9 +22,13 @@ public class Lib001AutoConfiguration {
 	@Bean
 	public MessageSource messageSource(
 			@Value("${spring.cloud.config.uri}") String configUri,
+			@Value("${spring.cloud.config.username}") String username,
+			@Value("${spring.cloud.config.password}") String password,
 			@Value("${git.branch}") String gitBranch) {
 		
+		configUri = configUri.replace("://", "://" + username + ":" + password + "@");
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		//messageSource.setResourceLoader(resourceLoader);
 		messageSource.setBasenames("classpath:messages",
 				configUri + "/appname/profile/" + gitBranch + "/messages/messages",
 				configUri + "/appname/profile/develop/messages/messages",

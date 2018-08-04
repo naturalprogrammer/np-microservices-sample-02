@@ -1,6 +1,6 @@
 spring:
   application:
-    name: auth
+    name: discovery
   profiles:
     active: dev
   cloud:
@@ -8,4 +8,4 @@ spring:
       uri: http://localhost:8888
       username: user
       password: topsecret
-      label: ${git.branch},develop,master
+      
