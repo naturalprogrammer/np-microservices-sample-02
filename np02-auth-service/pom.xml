@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 
 	<name>np02-auth-service</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Auth Service</description>
 
 	<parent>
 		<groupId>com.naturalprogrammer</groupId>
@@ -16,20 +16,19 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>10</java.version>
-		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
-	</properties>
-
 	<dependencies>
 
 		<dependency>
 			<groupId>com.naturalprogrammer.np02</groupId>
 			<artifactId>np02-lib-001</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
+
+	    <dependency>
+	        <groupId>com.naturalprogrammer.spring-lemon</groupId>
+	        <artifactId>spring-lemon-reactive</artifactId>
+	        <version>1.0.0.M6</version>
+	    </dependency> <!-- See https://github.com/naturalprogrammer/spring-lemon/releases for latest release -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -44,18 +43,6 @@
 		
 	</dependencies>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -64,6 +51,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

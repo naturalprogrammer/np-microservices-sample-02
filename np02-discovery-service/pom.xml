@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 
 	<name>np02-discovery-service</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Disovery Service</description>
 
 	<parent>
 		<groupId>com.naturalprogrammer</groupId>
@@ -43,18 +43,6 @@
 		
 	</dependencies>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -63,6 +51,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

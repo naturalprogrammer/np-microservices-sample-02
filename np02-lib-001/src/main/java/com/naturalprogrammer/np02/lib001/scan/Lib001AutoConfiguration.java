@@ -12,10 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import com.naturalprogrammer.spring.lemonreactive.LemonReactiveAutoConfiguration;
-
 @Configuration
-@AutoConfigureBefore({LemonReactiveAutoConfiguration.class, ValidationAutoConfiguration.class})
+@AutoConfigureBefore({ValidationAutoConfiguration.class})
 @ComponentScan
 public class Lib001AutoConfiguration {
 	
