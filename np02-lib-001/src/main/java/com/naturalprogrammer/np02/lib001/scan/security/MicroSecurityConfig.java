@@ -35,8 +35,6 @@ import reactor.core.publisher.Mono;
 @EnableReactiveMethodSecurity
 public class MicroSecurityConfig {
 	
-	public static String USER_CLAIM = "user";
-
 	private static final Log log = LogFactory.getLog(MicroSecurityConfig.class);
 	
 	private JwtService jwtService;
@@ -98,7 +96,7 @@ public class MicroSecurityConfig {
 			
 			JWTClaimsSet claims = jwtService.parseToken(token, JwtService.AUTH_AUDIENCE);
 			
-			MicroUserDetails userDetails = (MicroUserDetails) claims.getClaim(USER_CLAIM);
+			MicroUserDetails userDetails = (MicroUserDetails) claims.getClaim(JwtService.USER_CLAIM);
 			
 			if (userDetails == null)
 				return Mono.error(new BadCredentialsException(LexUtils.getMessage("com.naturalprogrammer.spring.userNotFound")));
