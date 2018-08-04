@@ -18,6 +18,12 @@
 
 	<dependencies>
 	
+	    <dependency>
+	        <groupId>com.naturalprogrammer.spring-lemon</groupId>
+	        <artifactId>spring-lemon-commons</artifactId>
+	        <version>${spring-lemon.version}</version>
+	    </dependency> <!-- See https://github.com/naturalprogrammer/spring-lemon/releases for latest release -->
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
@@ -41,6 +47,11 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream-reactive</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.mongodb</groupId>
+		    <artifactId>bson</artifactId>		
 		</dependency>
 
 		<dependency>

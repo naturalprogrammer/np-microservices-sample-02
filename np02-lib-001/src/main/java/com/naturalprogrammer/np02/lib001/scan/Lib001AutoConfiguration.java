@@ -12,28 +12,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import com.naturalprogrammer.spring.lemon.commons.LemonCommonsAutoConfiguration;
+
 @Configuration
-@AutoConfigureBefore({ValidationAutoConfiguration.class})
+@AutoConfigureBefore({LemonCommonsAutoConfiguration.class, ValidationAutoConfiguration.class})
 @ComponentScan
 public class Lib001AutoConfiguration {
-	
-	@Bean
-	public MessageSource messageSource(
-			@Value("${spring.cloud.config.uri}") String configUri,
-			@Value("${spring.cloud.config.username}") String username,
-			@Value("${spring.cloud.config.password}") String password,
-			@Value("${git.branch}") String gitBranch) {
-		
-		configUri = configUri.replace("://", "://" + username + ":" + password + "@");
-		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		//messageSource.setResourceLoader(resourceLoader);
-		messageSource.setBasenames("classpath:messages",
-				configUri + "/appname/profile/" + gitBranch + "/messages/messages",
-				configUri + "/appname/profile/develop/messages/messages",
-				configUri + "/appname/profile/master/messages/messages");
-		
-		return messageSource;
-	}
 	
     @Bean
     public Validator validator(MessageSource messageSource) {
