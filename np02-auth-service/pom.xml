@@ -28,7 +28,7 @@
 	        <groupId>com.naturalprogrammer.spring-lemon</groupId>
 	        <artifactId>spring-lemon-reactive</artifactId>
 	        <version>${spring-lemon.version}</version>
-	    </dependency> <!-- See https://github.com/naturalprogrammer/spring-lemon/releases for latest release -->
+	    </dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

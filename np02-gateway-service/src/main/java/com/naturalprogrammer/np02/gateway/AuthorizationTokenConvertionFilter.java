@@ -37,15 +37,13 @@ public class AuthorizationTokenConvertionFilter implements WebFilter {
 		if(token == null || !token.startsWith(LecUtils.TOKEN_PREFIX))
 			return chain.filter(exchange);
 		
-		String microToken = convert(token);
+		String fullToken = convert(token);
 
-		log.debug("Microtoken: " + microToken);
-		
-		//ServerHttpRequest changedRequest = exchange.getRequest().mutate().headers(headersConsumer);
+		log.debug("New token: " + fullToken);
 		
 		exchange = exchange.mutate().request(
 				exchange.getRequest().mutate().headers(
-						headers -> headers.set(HttpHeaders.AUTHORIZATION, microToken)				
+						headers -> headers.set(HttpHeaders.AUTHORIZATION, fullToken)				
 				).build())
 			.build();
 		
@@ -62,21 +60,16 @@ public class AuthorizationTokenConvertionFilter implements WebFilter {
 	
 	private String getAuthHeader(ServerWebExchange exchange) {
 		
-		List<String> tokens = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION);
-		
-		if (tokens.size() == 0)
-			return null;
-		
-		if (tokens.size() > 1)
-			throw new RuntimeException("Duplicate tokens" + tokens);
-		
-		return tokens.get(0);
-	}
-	
-//	private ServerHttpRequest updatedRequest(ServerHttpRequest request, String newToken) {
+		return exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 //		
-//		HttpHeaders headers = request.getHeaders();
-//		headers.set(HttpHeaders.AUTHORIZATION, newToken);
-//		return request.mutate().
-//	}
+//		List<String> tokens = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION);
+//		
+//		if (tokens.size() == 0)
+//			return null;
+//		
+//		if (tokens.size() > 1)
+//			throw new RuntimeException("Duplicate tokens" + tokens);
+//		
+//		return tokens.get(0);
+	}
 }
