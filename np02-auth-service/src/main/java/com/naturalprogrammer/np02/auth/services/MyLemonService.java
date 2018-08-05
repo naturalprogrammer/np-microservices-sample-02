@@ -1,9 +1,7 @@
 package com.naturalprogrammer.np02.auth.services;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Optional;
 
 import org.bson.types.ObjectId;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,16 +1,17 @@
 package com.naturalprogrammer.np02.lib001.scan;
 
+import java.io.IOException;
+import java.io.Reader;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 import com.google.common.io.CharStreams;
 import com.naturalprogrammer.np02.lib001.scan.exceptions.MyFeignException;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.io.Reader;
 
 /**
  * Throws a FeignException when an error response
