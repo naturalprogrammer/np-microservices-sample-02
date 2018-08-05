@@ -3,11 +3,17 @@ package com.naturalprogrammer.np02.gateway;
 import java.util.Map;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.naturalprogrammer.np02.gateway.dto.MyToken;
 
 @FeignClient("auth")
 public interface AuthClient {
 	
-	@GetMapping("/api/core/fetch-micro-token")
-	Map<String, String> fetchMicroToken();
+	@RequestMapping(path = "/api/core/fetch-micro-token", method=RequestMethod.GET)
+	MyToken fetchMicroToken(@RequestHeader("Authorization") String authorization);
 }

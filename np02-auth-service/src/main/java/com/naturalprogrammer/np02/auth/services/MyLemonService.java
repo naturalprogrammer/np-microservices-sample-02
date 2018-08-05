@@ -53,17 +53,19 @@ public class MyLemonService extends LemonReactiveService<User, ObjectId> {
 			UserDto<?> currentUser = optionalUser.get();
 			
 			MicroUserDetails userDetails = new MicroUserDetails();
-			userDetails.setId((ObjectId) currentUser.getId());
+			userDetails.setId(((ObjectId) currentUser.getId()).toString());
 			userDetails.setName(((Tag)currentUser.getTag()).getName());
 			userDetails.setRoles(currentUser.getRoles());
 			userDetails.setUsername(currentUser.getUsername());
 			
-			Map<String, Object> claimMap = Collections.singletonMap(JwtService.USER_CLAIM, userDetails);
+			Map<String, Object> claimMap = Collections.singletonMap(JwtService.USER_CLAIM, LecUtils.serialize(userDetails));
 			
-			return Collections.singletonMap("token", LecUtils.TOKEN_PREFIX +
+			Map<String, String> tokenMap = Collections.singletonMap("token", LecUtils.TOKEN_PREFIX +
 				jwtService.createToken(JwtService.AUTH_AUDIENCE, userDetails.getUsername(),
 						Long.valueOf(properties.getJwt().getShortLivedMillis()),
 						claimMap));
+			
+			return tokenMap;
 		});
 	}
 }

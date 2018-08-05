@@ -49,7 +49,6 @@ public class MyLemonController extends LemonReactiveController<User, ObjectId> {
 	 * A simple function for pinging this server.
 	 */
 	@GetMapping("/fetch-micro-token")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public Mono<Map<String, String>> fetchMicroToken() {
 		
 		log.debug("Fetching a micro token");

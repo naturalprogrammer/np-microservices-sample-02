@@ -99,7 +99,7 @@ public class MicroSecurityConfig {
 			
 			JWTClaimsSet claims = jwtService.parseToken(token, JwtService.AUTH_AUDIENCE);
 			
-			MicroUserDetails userDetails = (MicroUserDetails) claims.getClaim(JwtService.USER_CLAIM);
+			MicroUserDetails userDetails = LecUtils.deserialize((String)claims.getClaim(JwtService.USER_CLAIM));
 			
 			if (userDetails == null)
 				return Mono.error(new AuthenticationCredentialsNotFoundException(LexUtils.getMessage("com.naturalprogrammer.spring.userNotFound", "")));

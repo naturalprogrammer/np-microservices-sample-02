@@ -21,7 +21,7 @@ public class MicroUserDetails implements UserDetails {
 	
 	private static final long serialVersionUID = 6024800553135900137L;
 	
-	private ObjectId id;
+	private String id;
 	private String username;
 	private String name;
 	private Set<String> roles;
