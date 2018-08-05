@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.access.expression.AbstractSecurityExpressionHandler;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
@@ -28,11 +29,13 @@ import com.naturalprogrammer.spring.lemon.commons.util.LecUtils;
 import com.naturalprogrammer.spring.lemon.exceptions.util.LexUtils;
 import com.nimbusds.jwt.JWTClaimsSet;
 
+import lombok.AllArgsConstructor;
 import reactor.core.publisher.Mono;
 
 @Configuration
 @ConditionalOnMissingClass("com.naturalprogrammer.spring.lemonreactive.LemonReactiveAutoConfiguration")
 @EnableReactiveMethodSecurity
+@AllArgsConstructor
 public class MicroSecurityConfig {
 	
 	private static final Log log = LogFactory.getLog(MicroSecurityConfig.class);
@@ -99,7 +102,7 @@ public class MicroSecurityConfig {
 			MicroUserDetails userDetails = (MicroUserDetails) claims.getClaim(JwtService.USER_CLAIM);
 			
 			if (userDetails == null)
-				return Mono.error(new BadCredentialsException(LexUtils.getMessage("com.naturalprogrammer.spring.userNotFound")));
+				return Mono.error(new AuthenticationCredentialsNotFoundException(LexUtils.getMessage("com.naturalprogrammer.spring.userNotFound", "")));
 			
 			return Mono.just(new JwtAuthenticationToken(userDetails, token, userDetails.getAuthorities()));
 		};

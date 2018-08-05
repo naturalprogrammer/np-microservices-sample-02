@@ -4,9 +4,13 @@ import java.util.Map;
 
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilter;
+import org.springframework.web.server.WebFilterChain;
 
 import com.naturalprogrammer.spring.lemon.commons.util.LecUtils;
 
@@ -15,12 +19,13 @@ import reactor.core.publisher.Mono;
 
 @Component
 @AllArgsConstructor
-public class AuthorizationTokenConverter implements GlobalFilter {
+@Order(Ordered.HIGHEST_PRECEDENCE)
+public class AuthorizationTokenConverter implements WebFilter {
 	
 	private AuthClient authClient;
 
 	@Override
-	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
 		
 		String token = exchange.getRequest()
 				.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
