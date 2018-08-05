@@ -32,24 +32,12 @@ public class MyLemonController extends LemonReactiveController<User, ObjectId> {
 
 	public static final String BASE_URI = "/api/core";
 	
-	private MyLemonService lemonService;
-	
 	@Override
-	public Mono<UserDto<ObjectId>> signup(
+	public Mono<UserDto> signup(
 			@RequestBody @JsonView(UserUtils.SignupInput.class)
 			@Validated(SignUpValidation.class) Mono<User> user,
 			ServerHttpResponse response) {
 		
 		return super.signup(user, response);
 	}
-	
-	/**
-	 * A simple function for pinging this server.
-	 */
-	@GetMapping("/fetch-micro-token")
-	public Mono<Map<String, String>> fetchMicroToken() {
-		
-		log.debug("Fetching a micro token");
-		return lemonService.fetchMicroToken();
-	}	
 }

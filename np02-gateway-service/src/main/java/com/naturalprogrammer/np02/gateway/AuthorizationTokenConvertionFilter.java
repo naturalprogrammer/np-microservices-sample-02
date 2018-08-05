@@ -56,7 +56,7 @@ public class AuthorizationTokenConvertionFilter implements WebFilter {
 
 	private String convert(String token) {
 		
-		MyToken myToken = authClient.fetchMicroToken(token);
+		MyToken myToken = authClient.fetchFullToken(token);
 		return myToken.getToken();
 	}
 	

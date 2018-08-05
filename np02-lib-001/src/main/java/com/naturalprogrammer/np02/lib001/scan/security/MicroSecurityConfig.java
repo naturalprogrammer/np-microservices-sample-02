@@ -23,6 +23,8 @@ import org.springframework.web.server.ServerWebExchange;
 
 import com.naturalprogrammer.spring.lemon.commons.security.JwtAuthenticationToken;
 import com.naturalprogrammer.spring.lemon.commons.security.JwtService;
+import com.naturalprogrammer.spring.lemon.commons.security.LemonPrincipal;
+import com.naturalprogrammer.spring.lemon.commons.security.UserDto;
 import com.naturalprogrammer.spring.lemon.commons.util.LecUtils;
 import com.naturalprogrammer.spring.lemon.exceptions.util.LexUtils;
 import com.nimbusds.jwt.JWTClaimsSet;
@@ -97,12 +99,13 @@ public class MicroSecurityConfig {
 			
 			JWTClaimsSet claims = jwtService.parseToken(token, JwtService.AUTH_AUDIENCE);
 			
-			MicroUserDetails userDetails = LecUtils.deserialize((String)claims.getClaim(JwtService.USER_CLAIM));
+			UserDto userDto = LecUtils.deserialize((String)claims.getClaim(JwtService.USER_CLAIM));
 			
-			if (userDetails == null)
+			if (userDto == null)
 				return Mono.error(new AuthenticationCredentialsNotFoundException(LexUtils.getMessage("com.naturalprogrammer.spring.userNotFound", "")));
 			
-			return Mono.just(new JwtAuthenticationToken(userDetails, token, userDetails.getAuthorities()));
+			LemonPrincipal principal = new LemonPrincipal(userDto);
+			return Mono.just(new JwtAuthenticationToken(principal, token, principal.getAuthorities()));
 		};
 	}
 
