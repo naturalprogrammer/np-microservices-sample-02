@@ -1,7 +1,6 @@
 package com.naturalprogrammer.np02.profile.domain;
 
 import java.time.Instant;
-import java.util.Set;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedBy;

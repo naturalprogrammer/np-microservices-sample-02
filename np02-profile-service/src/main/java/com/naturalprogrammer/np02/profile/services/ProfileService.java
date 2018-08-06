@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import com.naturalprogrammer.np02.profile.domain.Profile;
 import com.naturalprogrammer.np02.profile.forms.ProfileForm;
 import com.naturalprogrammer.np02.profile.repositories.ProfileRepository;
+import com.naturalprogrammer.spring.lemon.commons.security.UserDto;
 import com.naturalprogrammer.spring.lemon.commons.util.LecUtils;
+import com.naturalprogrammer.spring.lemon.commonsreactive.util.LecrUtils;
 
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -20,13 +22,40 @@ public class ProfileService {
 	@PreAuthorize("isAuthenticated()")
 	public Mono<Profile> upsertProfile(Mono<ProfileForm> profileForm) {
 		
-		return profileForm.zipWith()
-				.map(LecUtils.ensureAuthority(authorized, messageKey))
-				.flatMap(form -> {
+		return profileForm.zipWith(LecrUtils.currentUser())
+				.flatMap(tuple -> {
+					
+					UserDto user = tuple.getT2().get();
+					ProfileForm form = tuple.getT1();
+							
+					LecUtils.ensureAuthority(user.isGoodAdmin() || user.getId().equals(
+							form.getUserId().toString()),
+							"com.naturalprogrammer.spring.notGoodAdminOrSameUser");
+					
 					return profileRepository.findByUserId(form.getUserId())
-							.zipWith(Mono.just(form));
+							.flatMap(profile -> updateProfile(profile, form))
+							.switchIfEmpty(newProfile(form));
 				});
 			
 	}
+	
+	private Mono<Profile> updateProfile(Profile profile, ProfileForm form) {
 
+		profile.setName(form.getName());
+		profile.setWebsite(form.getWebsite());
+		profile.setAbout(form.getAbout());
+		
+		return profileRepository.save(profile);
+	}
+
+	private Mono<Profile> newProfile(ProfileForm form) {
+
+		Profile profile = new Profile();
+		profile.setUserId(form.getUserId());
+		profile.setName(form.getName());
+		profile.setWebsite(form.getWebsite());
+		profile.setAbout(form.getAbout());
+		
+		return profileRepository.insert(profile);
+	}
 }
