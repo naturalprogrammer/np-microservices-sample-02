@@ -1,7 +1,5 @@
 package com.naturalprogrammer.np02.lib001.scan.exceptions.handlers;
 
-import java.io.IOException;
-
 import org.springframework.stereotype.Component;
 
 import com.naturalprogrammer.np02.lib001.scan.exceptions.MyFeignException;
@@ -25,7 +23,7 @@ public class MyFeignExceptionHandler extends AbstractExceptionHandler<MyFeignExc
 			
 			errorResponse = LecUtils.fromJson(ex.getBody(), ErrorResponse.class);
 			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			
 			errorResponse = new ErrorResponse();
 			errorResponse.setMessage(ex.getBody());

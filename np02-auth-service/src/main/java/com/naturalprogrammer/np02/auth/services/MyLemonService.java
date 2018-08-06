@@ -1,22 +1,11 @@
 package com.naturalprogrammer.np02.auth.services;
 
-import java.util.Collections;
-import java.util.Map;
-
 import org.bson.types.ObjectId;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.naturalprogrammer.np02.auth.domain.User;
-import com.naturalprogrammer.np02.lib001.scan.security.UserTag;
-import com.naturalprogrammer.spring.lemon.commons.security.JwtService;
-import com.naturalprogrammer.spring.lemon.commons.security.LemonPrincipal;
 import com.naturalprogrammer.spring.lemon.commons.security.UserDto;
-import com.naturalprogrammer.spring.lemon.commons.util.LecUtils;
 import com.naturalprogrammer.spring.lemonreactive.LemonReactiveService;
-import com.naturalprogrammer.spring.lemonreactive.util.LerUtils;
-
-import reactor.core.publisher.Mono;
 
 @Service
 public class MyLemonService extends LemonReactiveService<User, ObjectId> {

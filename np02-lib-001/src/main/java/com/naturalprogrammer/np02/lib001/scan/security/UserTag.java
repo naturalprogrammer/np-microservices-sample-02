@@ -9,6 +9,5 @@ import lombok.Setter;
 public class UserTag implements Serializable {
 
 	private static final long serialVersionUID = 8790753082114620569L;
-	private String name;
-	
+	private String name;	
 }
