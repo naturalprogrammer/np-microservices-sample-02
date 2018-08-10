@@ -1,8 +1,14 @@
 package com.naturalprogrammer.np02.profile.services;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.bson.types.ObjectId;
+import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import com.naturalprogrammer.np02.lib001.scan.channels.UserChannel;
+import com.naturalprogrammer.np02.lib001.scan.forms.UserMessage;
 import com.naturalprogrammer.np02.profile.domain.Profile;
 import com.naturalprogrammer.np02.profile.forms.ProfileForm;
 import com.naturalprogrammer.np02.profile.repositories.ProfileRepository;
@@ -17,6 +23,7 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 public class ProfileService {
 	
+	private static final Log log = LogFactory.getLog(ProfileService.class);
 	private ProfileRepository profileRepository;
 	
 	@PreAuthorize("isAuthenticated()")
@@ -57,5 +64,16 @@ public class ProfileService {
 		profile.setAbout(form.getAbout());
 		
 		return profileRepository.insert(profile);
-	}
+	}	
+	
+	@StreamListener(UserChannel.INPUT)
+	public void subscribeUserMessage(UserMessage userMessage) {
+		
+		log.debug("Received " + userMessage);
+
+		profileRepository.findByUserId(new ObjectId(userMessage.getId()))
+			.doOnNext(profile -> profile.setName(userMessage.getName()))
+			.flatMap(profileRepository::save)
+			.subscribe();
+	}	
 }
