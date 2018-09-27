@@ -4,9 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 
+import com.naturalprogrammer.np02.lib001.scan.Lib001Configuration;
 import com.naturalprogrammer.np02.lib001.scan.channels.UserChannel;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackageClasses= {
+		Np02ProfileServiceApplication.class,
+		Lib001Configuration.class
+})
 @EnableBinding(UserChannel.class)
 public class Np02ProfileServiceApplication {
 
