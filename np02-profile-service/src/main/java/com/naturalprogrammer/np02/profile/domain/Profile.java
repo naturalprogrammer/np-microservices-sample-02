@@ -1,14 +1,14 @@
 package com.naturalprogrammer.np02.profile.domain;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.naturalprogrammer.spring.lemon.commonsmongo.AbstractDocument;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Document
 @Getter @Setter
-public class Profile extends MongoDocument {
+public class Profile extends AbstractDocument<ObjectId> {
 
 	private ObjectId userId;
 	private String name;

@@ -20,7 +20,7 @@
 	
 	    <dependency>
 	        <groupId>com.naturalprogrammer.spring-lemon</groupId>
-	        <artifactId>spring-lemon-commons-reactive</artifactId>
+	        <artifactId>spring-lemon-commons-mongo</artifactId>
 	        <version>${spring-lemon.version}</version>
 	    </dependency> <!-- See https://github.com/naturalprogrammer/spring-lemon/releases for latest release -->
 
